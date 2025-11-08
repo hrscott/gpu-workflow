@@ -74,5 +74,5 @@ $DOCKER_CMD run --rm --gpus all nvidia/cuda:12.8.0-runtime-ubuntu22.04 nvidia-sm
 
 echo
 echo "✅ Preflight PASSED: host + Docker + NVIDIA + container GPU all look good."
-EOF
+
 

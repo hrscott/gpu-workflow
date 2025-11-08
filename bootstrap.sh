@@ -88,4 +88,3 @@ echo "    to refresh your groups for the current session."
 echo
 echo "When you're ready, start the stack with:"
 echo "  ./run_pipeline.sh"
-EOF
