@@ -1,0 +1,40 @@
+name: gpu-workflow
+services:
+  app:
+    image: ${IMAGE_REF}
+    command: ${APP_COMMAND}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: ${GPU_COUNT}
+              capabilities: [gpu]
+    environment:
+      NVIDIA_VISIBLE_DEVICES: ${NVIDIA_VISIBLE_DEVICES}
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+      NUM_GPUS: ${NUM_GPUS}
+    shm_size: ${SHM_SIZE}
+    ulimits:
+      nofile:
+        soft: ${NOFILE_SOFT}
+        hard: ${NOFILE_HARD}
+    volumes:
+      - ${CODE_DIR}:/workspace/code:rw
+      - ${DATA_DIR}:/workspace/data:ro
+      - ${OUTPUT_DIR}:/workspace/outputs:rw
+    working_dir: /workspace
+    tty: true
+
+  dcgm-exporter:
+    image: nvidia/dcgm-exporter:${DCGM_TAG}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: ${GPU_COUNT}
+              capabilities: [gpu]
+    ports:
+      - "${DCGM_PORT}:9400"
+    profiles: ["monitor"]
