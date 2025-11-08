@@ -1,4 +1,4 @@
-# 🧬 GPU Workflow for ColabDesign
+# GPU Workflow for ColabDesign
 
 A reproducible Docker-based GPU environment for running **[ColabDesign](https://github.com/sokrypton/ColabDesign)** and related protein design tools (ProteinMPNN, RFdiffusion, ColabFold, etc.) on cloud GPU instances such as [Lambda Labs](https://lambdalabs.com/).
 
@@ -11,7 +11,7 @@ Once built, a new user can go from a fresh GPU instance to a working ColabDesign
 
 ---
 
-## 🧰 Requirements
+## Requirements
 
 - **Host OS:** Ubuntu 22.04 (Lambda GPU instances are ideal)
 - **Hardware:** NVIDIA GPU with CUDA capability
@@ -20,13 +20,15 @@ Once built, a new user can go from a fresh GPU instance to a working ColabDesign
 
 ---
 
-## 🚀 Quickstart (Fresh Lambda GPU Instance)
+##  Quickstart (Fresh Lambda GPU Instance)
 
 ### 1. Clone this repository
 
 ```bash
-git clone https://github.com/<your-org>/gpu-workflow.git
+git clone https://github.com/hrscott/gpu-workflow.git
 cd gpu-workflow
+
+
 2. One-time host setup
 Installs Docker, NVIDIA Container Toolkit, and verifies GPU support.
 
@@ -51,7 +53,7 @@ Docker runtime configuration
 
 GPU access inside a test container
 
-✅ You should see “GPU inside container is visible!”
+You should see “GPU inside container is visible!”
 
 4. Prepare environment configuration
 Create your local .env and working directories:
@@ -113,9 +115,9 @@ bash
 Copy code
 [CudaDevice(id=0)]
 /opt/venv/lib/python3.10/site-packages/colabdesign/__init__.py
-🎉 You now have a fully GPU-accelerated ColabDesign environment.
+You now have a fully GPU-accelerated ColabDesign environment.
 
-📁 Directory Mappings
+Directory Mappings
 The container mounts host directories defined in .env:
 
 Host Path	Container Path	Purpose
@@ -131,7 +133,8 @@ Copy code
 ls docker/code
 # Inside container
 ls /workspace/code
-🧱 Building Blocks
+
+Building Blocks
 Key scripts
 Script	Purpose
 bootstrap.sh	Installs Docker, NVIDIA toolkit, and configures GPU support
@@ -141,7 +144,7 @@ scripts/build_colabdesign_image.sh	Builds the colabdesign-gpu:latest image
 scripts/colabdesign_shell.sh	Opens a shell in the running ColabDesign container
 scripts/capture_env.sh	Snapshots system and Docker environment for debugging
 
-⚙️ ColabDesign Dockerfile Overview
+ColabDesign Dockerfile Overview
 The image is defined in:
 
 bash
@@ -224,4 +227,3 @@ JAX by Google Research.
 
 Lambda Labs for easy GPU infrastructure.
 
-This repository is a community-maintained wrapper to streamline GPU setup and reproducibility for computational protein design.
