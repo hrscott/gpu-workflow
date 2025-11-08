@@ -167,7 +167,7 @@ You can rebuild it anytime with:
 bash
 Copy code
 ./scripts/build_colabdesign_image.sh
-🧪 Example: Simple ColabDesign Check
+Example: Simple ColabDesign Check
 Once inside the container:
 
 bash
@@ -179,7 +179,7 @@ print("ColabDesign is ready.")
 EOF
 Optional: add your own scripts under /workspace/code to run ProteinMPNN or RFdiffusion pipelines.
 
-🧠 Troubleshooting
+Troubleshooting
 “permission denied while trying to connect to the Docker daemon socket”
 You’re not in the docker group yet.
 Run:
@@ -202,7 +202,7 @@ ModuleNotFoundError for Haiku, Chex, etc.
 You may have used an outdated image.
 Rebuild the latest ColabDesign GPU image as above.
 
-🧹 Maintenance Notes
+Maintenance Notes
 To stop the stack:
 
 bash
@@ -220,7 +220,8 @@ docker/colabdesign.Dockerfile:
 dockerfile
 Copy code
 RUN pip install "git+https://github.com/sokrypton/ColabDesign.git@<new-tag>" --no-deps
-🧬 Credits
+
+Credits
 ColabDesign by Sergey Ovchinnikov et al.
 
 JAX by Google Research.
