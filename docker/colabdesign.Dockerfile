@@ -45,6 +45,20 @@ RUN pip install --no-cache-dir \
     "git+https://github.com/sokrypton/ColabDesign.git@v1.1.3" \
     --no-deps
 
+# Add a small compatibility shim for JAX 0.6+ and ColabDesign (jax.tree_map)
+RUN python - << 'EOF'
+import os, sys
+site_dir = next(p for p in sys.path if p.endswith('site-packages'))
+sc_path = os.path.join(site_dir, 'sitecustomize.py')
+with open(sc_path, 'w') as f:
+    f.write(
+        "import jax, jax.tree_util\n"
+        "if not hasattr(jax, 'tree_map'):\n"
+        "    jax.tree_map = jax.tree_util.tree_map\n"
+    )
+print("Wrote:", sc_path)
+EOF
+
 # Default working directory inside the container
 WORKDIR /workspace
 
