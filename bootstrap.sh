@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -72,12 +73,12 @@ echo
 echo "==> Running GPU preflight checks..."
 "\$ROOT_DIR/gpu_preflight.sh" || {
   echo
-  echo " Preflight failed. Fix the reported issues and re-run ./bootstrap.sh."
+  echo "❌ Preflight failed. Fix the reported issues and re-run ./bootstrap.sh."
   exit 1
 }
 
 echo
-echo " bootstrap.sh completed successfully."
+echo "✅ bootstrap.sh completed successfully."
 echo
 echo "NOTE:"
 echo "  • Your user was added to the 'docker' group."
@@ -88,3 +89,4 @@ echo "    to refresh your groups for the current session."
 echo
 echo "When you're ready, start the stack with:"
 echo "  ./run_pipeline.sh"
+EOF

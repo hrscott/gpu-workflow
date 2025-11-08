@@ -73,4 +73,5 @@ echo "===== IN-CONTAINER GPU VISIBILITY ====="
 }
 
 echo
-echo " Preflight PASSED: host + Docker + NVIDIA + container GPU all look good."
+echo "✅ Preflight PASSED: host + Docker + NVIDIA + container GPU all look good."
+EOF
