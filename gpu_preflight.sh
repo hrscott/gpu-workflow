@@ -17,13 +17,13 @@ pick_docker_cmd() {
 
 DOCKER_CMD="$(pick_docker_cmd)"
 
-if [ -z "\$DOCKER_CMD" ]; then
+if [ -z "$DOCKER_CMD" ]; then
   echo "ERROR: Cannot talk to Docker daemon (even with sudo)." >&2
   echo "       Check 'sudo systemctl status docker' or re-run ./bootstrap.sh." >&2
   exit 1
 fi
 
-if [ "\$DOCKER_CMD" = "sudo docker" ]; then
+if [ "$DOCKER_CMD" = "sudo docker" ]; then
   echo "NOTE: using 'sudo docker'."
   echo "      To use plain 'docker' without sudo:"
   echo "        • Make sure your user is in the 'docker' group,"
@@ -58,16 +58,16 @@ fi
 echo
 
 echo "===== DOCKER (access & runtimes) ====="
-if ! \$DOCKER_CMD info >/dev/null 2>&1; then
-  echo "ERROR: '\$DOCKER_CMD info' failed. Docker daemon or permissions issue."
+if ! $DOCKER_CMD info >/dev/null 2>&1; then
+  echo "ERROR: '$DOCKER_CMD info' failed. Docker daemon or permissions issue."
   exit 1
 fi
 
-\$DOCKER_CMD info | sed -n '/Runtimes/,+6p' || true
+$DOCKER_CMD info | sed -n '/Runtimes/,+6p' || true
 echo
 
 echo "===== IN-CONTAINER GPU VISIBILITY ====="
-\$DOCKER_CMD run --rm --gpus all nvidia/cuda:12.8.0-runtime-ubuntu22.04 nvidia-smi || {
+$DOCKER_CMD run --rm --gpus all nvidia/cuda:12.8.0-runtime-ubuntu22.04 nvidia-smi || {
   echo "ERROR: container cannot access GPUs. Check NVIDIA runtime configuration."
   exit 1
 }
@@ -75,3 +75,4 @@ echo "===== IN-CONTAINER GPU VISIBILITY ====="
 echo
 echo "✅ Preflight PASSED: host + Docker + NVIDIA + container GPU all look good."
 EOF
+

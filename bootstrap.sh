@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#!/usr/bin/env bash
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -40,7 +39,7 @@ sudo systemctl enable --now docker
 echo
 echo "==> Ensuring 'docker' group exists and adding current user..."
 sudo groupadd docker 2>/dev/null || true
-sudo usermod -aG docker "\$USER" || true
+sudo usermod -aG docker "$USER" || true
 
 echo
 echo "==> Configuring NVIDIA runtime for Docker (if nvidia-ctk is available)..."
@@ -58,9 +57,9 @@ sudo systemctl restart docker
 
 echo
 echo "==> Ensuring docker/.env exists..."
-if [ ! -f "\$ROOT_DIR/docker/.env" ]; then
-  if [ -f "\$ROOT_DIR/docker/.env.example" ]; then
-    cp "\$ROOT_DIR/docker/.env.example" "\$ROOT_DIR/docker/.env"
+if [ ! -f "$ROOT_DIR/docker/.env" ]; then
+  if [ -f "$ROOT_DIR/docker/.env.example" ]; then
+    cp "$ROOT_DIR/docker/.env.example" "$ROOT_DIR/docker/.env"
     echo "Created docker/.env from docker/.env.example"
   else
     echo "WARNING: docker/.env.example not found; create docker/.env manually."
@@ -71,7 +70,7 @@ fi
 
 echo
 echo "==> Running GPU preflight checks..."
-"\$ROOT_DIR/gpu_preflight.sh" || {
+"$ROOT_DIR/gpu_preflight.sh" || {
   echo
   echo "❌ Preflight failed. Fix the reported issues and re-run ./bootstrap.sh."
   exit 1
