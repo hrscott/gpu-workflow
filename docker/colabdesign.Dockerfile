@@ -45,7 +45,7 @@ RUN pip install --no-cache-dir \
     "git+https://github.com/sokrypton/ColabDesign.git@v1.1.3" \
     --no-deps
 
-# Add a small compatibility shim for JAX 0.6+ and ColabDesign (jax.tree_map)
+# Add a small compatibility shim for JAX 0.6+ and ColabDesign (tree_* APIs)
 RUN python - << 'EOF'
 import os, sys
 site_dir = next(p for p in sys.path if p.endswith('site-packages'))
@@ -55,8 +55,12 @@ with open(sc_path, 'w') as f:
         "import jax, jax.tree_util\n"
         "if not hasattr(jax, 'tree_map'):\n"
         "    jax.tree_map = jax.tree_util.tree_map\n"
+        "if not hasattr(jax, 'tree_flatten'):\n"
+        "    jax.tree_flatten = jax.tree_util.tree_flatten\n"
+        "if not hasattr(jax, 'tree_unflatten'):\n"
+        "    jax.tree_unflatten = jax.tree_util.tree_unflatten\n"
     )
-print("Wrote:", sc_path)
+print('Wrote:', sc_path)
 EOF
 
 # Default working directory inside the container
@@ -64,3 +68,4 @@ WORKDIR /workspace
 
 # Fallback command (docker compose usually overrides this with APP_COMMAND)
 CMD ["bash"]
+
